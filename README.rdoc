@@ -1,0 +1,6 @@
+= git_test
+
+Describe your project here
+
+:include:git_test.rdoc
+

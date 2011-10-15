@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'gli'
+require 'lib/git_test_version'
+require 'lib/git_test'
+
+include GLI
+
+#    :::::::: ::::::::::: :::::::::::      ::::::::::: :::::::::: :::::::: :::::::::::
+#   :+:    :+:    :+:         :+:              :+:     :+:       :+:    :+:    :+:
+#   +:+           +:+         +:+              +:+     +:+       +:+           +:+
+#   :#:           +#+         +#+              +#+     +#++:++#  +#++:++#++    +#+
+#   +#+   +#+#    +#+         +#+              +#+     +#+              +#+    +#+
+#   #+#    #+#    #+#         #+#              #+#     #+#       #+#    #+#    #+#
+#    ######## ###########     ###              ###     ########## ########     ###
+
+
+program_desc %Q{ git_test runs your tests and stores them in git. Use git_test to track
+  tests over multiple branches, runs, and teammates. Run git_test when you pull and push
+  and you'll always know the state of your project!}
+
+version GitTest::VERSION
+
+desc 'test command used to run tests'
+default_value 'rspec /spec -f h -c'
+arg_name 'command'
+flag [:cmd]
+
+
+desc "runs your tests then pushes to origin"
+command :push do |c|
+  c.desc 'if true will push code to repo after running tests instead of before'
+  c.default_value true
+  c.arg_name 'push_after_test'
+  c.switch [:pat,:push_after_test]
+
+  c.action do |global_options,options,args|
+    global_options.merge! options
+    runner = GitTest::Runner.new(global_options)
+    runner.pull!
+    runner.push! unless options[:push_after_test]
+    runner.test!
+    runner.write_report!
+    runner.push! if options[:push_after_test]
+  end
+end
+
+pre do |global,command,options,args|
+  # Pre logic here
+  # Return true to proceed; false to abourt and not call the
+  # chosen command
+  # Use skips_pre before a command to skip this block
+  # on that command only
+  true
+end
+
+post do |global,command,options,args|
+  # Post logic here
+  # Use skips_post before a command to skip this
+  # block on that command only
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit GLI.run(ARGV)

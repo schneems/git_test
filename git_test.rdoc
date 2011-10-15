@@ -1,0 +1,5 @@
+= git_test
+
+Generate this with
+    git_test rdoc
+After you have described your command line interface
