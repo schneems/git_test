@@ -1,6 +1,6 @@
 module GitTest
   class Test
-    attr_accessor :report, :result, :status, :notify, :created_at, :command, :exit_code
+    attr_accessor :report, :status, :notify, :created_at, :command, :exit_code
     def initialize(options = {}, notify = Notify.new)
       self.notify     = notify
       self.created_at = Time.now
