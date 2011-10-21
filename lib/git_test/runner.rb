@@ -25,13 +25,11 @@ module GitTest
          proj.check_repo_status!
          notify.start("Running tests on: #{proj.branch}")
          test.run!
-         notify.done("Test #{test.result}", test.passed?)
+         notify.done("Test finished: #{test.status}", test.passed?)
        end
      end
 
      def clean_test_dir!
-       # test_dir = proj.test_dir
-       # system "rm -rf #{test_dir}" if File.basename(test_dir) ~= %r{^\.tmp.*}
        FileUtils.remove_entry_secure test_dir
      end
 
@@ -46,7 +44,7 @@ module GitTest
      end
 
      def write_report!
-       notify.critical_error("Must run `test!` before writing a report") if test.result.nil?
+       notify.critical_error("Must run `test!` before writing a report") if test.status.nil?
        in_test_branch("git_test_reports/#{test_proj.branch}") do
          self.writer  = GitTest::Writer.new(:path   => "/",
                                             :name   => report_name,
