@@ -4,7 +4,8 @@ describe GitTest::Runner do
   let(:test) do
     mock :test,
          :created_at => Time.now,
-         :result     => 'passed',
+         :status     => 'passed',
+         :passed?    =>  true,
          :format     => 'html',
          :report     => '<h2>oh hai</h2>'
   end
@@ -16,13 +17,6 @@ describe GitTest::Runner do
     @runner.stub(:test).and_return(test)
   end
 
-  before do
-    FakeFS.activate!
-  end
-
-  after do
-    FakeFS.deactivate!
-  end
 
   describe 'test!' do
     it 'runs test' do
@@ -33,6 +27,7 @@ describe GitTest::Runner do
 
   describe 'writer!' do
     it 'writes reports' do
+      pending
       FakeFS do
         @runner.proj.should_receive(:username).and_return("schneems") # fakefs thwards the real call
         @runner.write_report!
