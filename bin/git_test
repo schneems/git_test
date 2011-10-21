@@ -22,7 +22,7 @@ program_desc %Q{ git_test runs your tests and stores them in git. Use git_test t
 version GitTest::VERSION
 
 desc 'test command used to run tests'
-default_value 'rspec /spec -f h -c'
+default_value 'rspec spec/ -f h -c'
 arg_name 'command'
 flag [:cmd]
 
