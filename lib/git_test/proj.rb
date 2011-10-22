@@ -14,6 +14,11 @@ module GitTest
     # add
     # commit("this is my commit message")
 
+
+    def show(branch, file)
+      self.lib.send :command, "show", "#{branch}:#{file}"
+    end
+
     alias :pull_original :pull
 
     def pull(*args)
@@ -23,10 +28,7 @@ module GitTest
     # pull
 
     def check_repo_status!
-      notify.critical_error "Files have been changed commit them to proceed"  unless status.changed.empty?
-      notify.critical_error "Files have been added commit them to proceed"    unless status.added.empty?
-      notify.critical_error "Files have been deleted commit them to proceed"  unless status.deleted.empty?
-      true
+      repo_status_checked = true
     end
 
     def path
