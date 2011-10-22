@@ -72,9 +72,17 @@ module GitTest
       sentiment(msg, passed)
     end
 
+    def warn(msg)
+      write("WARNING: #{msg}", :red)
+    end
+
     def critical_error(msg, exit_code = -1)
       write(msg, :red)
       exit! exit_code
+    end
+
+    def raw(msg)
+      output.puts(msg)
     end
 
     def write(msg, color = :light_yellow, truncate = 80)
