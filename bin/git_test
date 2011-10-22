@@ -56,13 +56,18 @@ command :push do |c|
   c.switch [:pat,:push_after_test]
 
   c.action do |global_options,options,args|
-    global_options.merge! options
-    runner = GitTest::Runner.new(global_options)
-    runner.pull!
-    runner.push! unless options[:push_after_test]
-    runner.test!
-    runner.write_report!
-    runner.push! if options[:push_after_test]
+    begin
+      global_options.merge! options
+      runner = GitTest::Runner.new(global_options)
+      runner.pull!
+      runner.push! unless options[:push_after_test]
+      runner.test!
+      runner.write_report!
+      runner.push!
+      runner.notify.write("to view test report run `git_test show last`", :green)
+    ensure
+      runner.clean_test_dir!
+    end
   end
 end
 
@@ -82,6 +87,8 @@ post do |global,command,options,args|
 end
 
 on_error do |exception|
+  puts exception
+  puts exception.backtrace
   # Error logic here
   # return false to skip default error handling
   true
