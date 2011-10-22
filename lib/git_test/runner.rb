@@ -83,7 +83,7 @@ module GitTest
        test_proj.add
        result = test_proj.commit("#{proj.current_branch} report_name")
        notify.write("Pushing back to local repo")
-       test_proj.push(proj.repo, test_proj.current_branch)
+       test_proj.push(proj.repo, report_branch)
      end
 
      private
@@ -129,7 +129,8 @@ module GitTest
 
      def in_test_branch(branch = report_branch, &block)
        in_test_dir do
-         test_proj.branch(branch)
+         branch = test_proj.branch(branch)
+         branch.checkout
          test_proj.checkout(branch)
          yield
          test_proj.checkout(proj.current_branch)
