@@ -15,8 +15,6 @@ spec = Gem::Specification.new do |s|
 bin/git_test
   )
   s.require_paths << 'lib'
-  s.has_rdoc = true
-  s.rdoc_options << '--title' << 'git_test' << '--main' << 'README.rdoc' << '-ri'
   s.bindir = 'bin'
   s.executables << 'git_test'
 
