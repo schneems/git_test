@@ -48,7 +48,39 @@ command :show do |c|
 end
 
 
-desc "runs your tests then pushes to origin"
+
+desc "pulls from origin then runs tests"
+command :pull do |c|
+  c.action do |global_options,options,args|
+    begin
+      global_options.merge! options
+      runner = GitTest::Runner.new(global_options)
+      runner.pull!
+      runner.test!
+      runner.write_report!
+      runner.notify.write("to view test report run `git_test show last`", :green)
+    ensure
+      runner.clean_test_dir!
+    end
+  end
+end
+
+desc "runs your tests and saves them in git"
+command :run do |c|
+  c.action do |global_options,options,args|
+    begin
+      global_options.merge! options
+      runner = GitTest::Runner.new(global_options)
+      runner.test!
+      runner.write_report!
+      runner.notify.write("to view test report run `git_test show last`", :green)
+    ensure
+      runner.clean_test_dir!
+    end
+  end
+end
+
+desc "runs your tests, saves them in git then pushes to origin"
 command :push do |c|
   c.desc 'if true will push code to repo after running tests instead of before'
   c.default_value true
