@@ -2,8 +2,9 @@
 
 Your test results...distributed
 
-What good are tests if no one looks at the results? GitTest saves your test reports so you can see trending over time and across team members.
-
+git\_test runs your tests and stores them in git. Use git_test to track
+tests over multiple branches, runs, and teammates. Run git\_test when you pull and push
+and you'll always know the state of your project!
 
 ## Install
 
