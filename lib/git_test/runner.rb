@@ -29,6 +29,28 @@ module GitTest
        end
      end
 
+     # will open the specified or  last report
+     def show_report(file_name = nil, branch = current_branch)
+       file_name ||= last_report_file_name(branch)
+       report = proj.show(report_branch, File.join(report_path(branch), file_name))
+       report_file = Tempfile.new([report_name, report_extension])
+       report_file.write(report)
+       exec "open #{report_file.path}"
+       sleep 300
+     end
+
+     # gives last report file name
+     def last_report_file_name(branch = current_branch)
+       ls_report_dir(branch).first
+     end
+
+     # outputs the files in the test directory for a given branch
+     def ls_report_dir(branch = current_branch)
+       files = proj.show(report_branch, report_path(branch)).split("\n")
+       files.shift(2)
+       files
+     end
+
      def clean_test_dir!
        FileUtils.remove_entry_secure test_dir
      end

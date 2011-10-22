@@ -27,6 +27,27 @@ arg_name 'command'
 flag [:cmd]
 
 
+desc "shows previous reports. Use args 'all', 'last', or provide a report name"
+long_desc %Q{
+  - `all` lists reports
+  - `last` shows the last report
+  - `2011-10-21T23:22:09Z_schneems_passed.html` shows that report
+}
+command :show do |c|
+  c.action do |global_options,options,args|
+    global_options.merge! options
+    runner = GitTest::Runner.new(global_options)
+    if args.include?('all')
+      reports = runner.ls_report_dir
+      runner.notify.raw(reports)
+    else
+      path = args.first unless args.include?('last')
+      runner.show_report(path)
+    end
+  end
+end
+
+
 desc "runs your tests then pushes to origin"
 command :push do |c|
   c.desc 'if true will push code to repo after running tests instead of before'
