@@ -81,7 +81,7 @@ module GitTest
      # commits contents of test branch and pushes back to local repo
      def commit_to_test_proj!
        test_proj.add
-       result = test_proj.commit("#{proj.current_branch} report_name")
+       result = test_proj.commit("#{proj.current_branch} #{report_name}")
        notify.write("Pushing back to local repo")
        test_proj.push(proj.repo, report_branch)
      end
