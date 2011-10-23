@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git_test (0.0.1)
+    git_test (0.0.3)
       colorize
       git
       gli

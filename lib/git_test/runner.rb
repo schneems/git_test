@@ -83,7 +83,10 @@ module GitTest
        test_proj.add
        result = test_proj.commit("#{proj.current_branch} #{report_name}")
        notify.write("Pushing back to local repo")
-       test_proj.push(proj.repo, report_branch)
+       puts "================="
+       puts report_branch
+       puts proj.repo
+       test_proj.push("#{report_branch}:#{proj.repo}", report_branch)
      end
 
      private
