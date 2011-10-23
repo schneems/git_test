@@ -63,7 +63,6 @@ module GitTest
      def pull!
        notify.write("Pulling from origin")
        proj.pull('origin', proj.current_branch)
-       proj.fetch('origin', report_branch) if proj.is_branch? report_branch
      end
 
      # writes the result of the test command to disk
