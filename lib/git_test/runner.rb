@@ -80,15 +80,16 @@ module GitTest
 
      # commits contents of test branch and pushes back to local repo
      def commit_to_test_proj!
-       test_proj.add
+       test_proj.add full_report_path
+
+
        result = test_proj.commit("#{proj.current_branch} #{report_name}")
        notify.write("Pushing back to local repo")
-       puts "================="
-       puts test_proj.current_branch
-       puts report_branch
-       puts proj.repo
-       puts test_proj
-       test_proj.push(proj.repo, report_branch)
+
+       puts "=========="
+       puts system "git pull origin #{report_branch} && git push origin #{report_branch}"
+       # test_proj.pull('origin', report_branch)
+       # test_proj.push('origin', report_branch)
      end
 
      private
