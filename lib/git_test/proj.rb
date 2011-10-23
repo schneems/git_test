@@ -19,13 +19,11 @@ module GitTest
       self.lib.send :command, "show", "#{branch}:#{file}"
     end
 
-    alias :pull_original :pull
 
-    def pull(*args)
+    def real_pull(remote = 'origin', branch = 'master')
       check_repo_status!
-      pull_original *args
+      self.lib.send :command, 'pull', [remote, branch]
     end
-    # pull
 
     def check_repo_status!
       repo_status_checked = true
