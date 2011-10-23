@@ -69,12 +69,14 @@ module GitTest
      # writes the result of the test command to disk
      def write_report!
        notify.critical_error("Must run `test!` before writing a report") if test.status.nil?
-       in_test_branch do
+       in_test_dir do
          self.writer  = GitTest::Writer.new(:path   => report_path,
                                             :name   => report_name,
                                             :report => test.report )
-         writer.save!
-         commit_to_test_proj!
+         in_report_branch do
+           writer.save!
+           commit_to_test_proj!
+         end
        end
      end
 
@@ -129,7 +131,7 @@ module GitTest
        end
      end
 
-     def in_test_branch(branch = report_branch, &block)
+     def in_report_branch(branch = report_branch, &block)
        in_test_dir do
          branch = test_proj.branch(branch)
          branch.checkout
