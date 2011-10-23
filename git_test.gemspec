@@ -12,10 +12,18 @@ spec = Gem::Specification.new do |s|
     and you'll always know the state of your project!"
 # Add your other files here if you make them
   s.files = %w(
-bin/git_test
+    bin/git_test
+    lib/git_test.rb
+    lib/git_test/notify.rb
+    lib/git_test/proj.rb
+    lib/git_test/runner.rb
+    lib/git_test/test.rb
+    lib/git_test/writer.rb
   )
   s.require_paths << 'lib'
-  s.has_rdoc = false
+  s.extra_rdoc_files = [
+    "README.md"
+  ]
   s.bindir = 'bin'
   s.executables << 'git_test'
 
