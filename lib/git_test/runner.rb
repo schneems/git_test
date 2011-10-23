@@ -62,8 +62,8 @@ module GitTest
      # pulls from origin on the current branch and report branch
      def pull!
        notify.write("Pulling from origin")
-       proj.pull('origin', proj.current_branch)
-       proj.pull('origin', report_branch) if proj.is_branch? report_branch
+       proj.real_pull('origin', proj.current_branch)
+       proj.real_pull('origin', report_branch) if proj.is_branch? report_branch
      end
 
      # writes the result of the test command to disk
@@ -81,15 +81,10 @@ module GitTest
      # commits contents of test branch and pushes back to local repo
      def commit_to_test_proj!
        test_proj.add full_report_path
-
-
        result = test_proj.commit("#{proj.current_branch} #{report_name}")
        notify.write("Pushing back to local repo")
-
-       puts "=========="
-       puts system "git pull origin #{report_branch} && git push origin #{report_branch}"
-       # test_proj.pull('origin', report_branch)
-       # test_proj.push('origin', report_branch)
+       test_proj.real_pull('origin', report_branch)
+       test_proj.push('origin', report_branch)
      end
 
      private
@@ -124,7 +119,8 @@ module GitTest
 
 
      def clone_to_test!
-       self.test_proj = proj.clone_to_test(test_dir)
+       clone = proj.clone_to_test(test_dir)
+       self.test_proj = GitTest::Proj.new(:path => clone.dir.to_s)
      end
 
      def in_test_dir(&block)
