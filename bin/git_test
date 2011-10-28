@@ -26,7 +26,7 @@ include GLI
 
 
 program_desc %Q{ git_test runs your tests and stores them in git. Use git_test to track
-  tests over multiple branches, runs, and teammates. Run git_test when you pull and push
+  tests over multiple branches, runs, and teammates. Run git_test when you fetch and push
   and you'll always know the state of your project!}
 
 version GitTest::VERSION
@@ -59,13 +59,13 @@ end
 
 
 
-desc "pulls from origin then runs tests"
-command :pull do |c|
+desc "fetchs from origin then runs tests"
+command :fetch do |c|
   c.action do |global_options,options,args|
     begin
       global_options.merge! options
       runner = GitTest::Runner.new(global_options)
-      runner.pull!
+      runner.fetch!
       runner.test!
       runner.write_report!
       runner.notify.write("to view test report run `git_test show last`", :green)
@@ -101,7 +101,7 @@ command :push do |c|
     begin
       global_options.merge! options
       runner = GitTest::Runner.new(global_options)
-      runner.pull!
+      runner.fetch!
       runner.push! unless options[:push_after_test]
       runner.test!
       runner.write_report!
