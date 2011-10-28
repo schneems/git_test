@@ -12,13 +12,14 @@ spec = Gem::Specification.new do |s|
     and you'll always know the state of your project!"
 # Add your other files here if you make them
   s.files = %w(
-    bin/git_test
     lib/git_test.rb
     lib/git_test/notify.rb
     lib/git_test/proj.rb
     lib/git_test/runner.rb
     lib/git_test/test.rb
     lib/git_test/writer.rb
+    lib/git_test_version.rb
+    bin/git_test
   )
   s.require_paths << 'lib'
   s.extra_rdoc_files = [
@@ -38,7 +39,7 @@ spec = Gem::Specification.new do |s|
 
   ## Runtime Dependencies
   s.add_runtime_dependency('git')
-  s.add_runtime_dependency('gli')
+  s.add_runtime_dependency('gli', '1.3.5')
   s.add_runtime_dependency('colorize')
   s.add_runtime_dependency('growl')
 
