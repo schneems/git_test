@@ -10,7 +10,7 @@ module GitTest
        self.notify      = notify
        self.proj        = GitTest::Proj.new(options)
        self.test        = GitTest::Test.new(options)
-       self.proj_branch = proj_branch
+       self.proj_branch = proj.current_branch
        self.test_dir    = Dir.mktmpdir(".git_test_#{proj_branch}_#{Time.now.to_i}")
        prepare_proj_for_test!
        clone_to_test!
@@ -36,8 +36,8 @@ module GitTest
        report = proj.show(report_branch, File.join(report_path(branch), file_name))
        report_file = Tempfile.new([report_name, report_extension])
        report_file.write(report)
-       exec "open #{report_file.path}"
-       sleep 300
+       `open #{report_file.path}`
+       sleep 3
      end
 
      # gives last report file name
