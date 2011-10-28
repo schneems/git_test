@@ -3,7 +3,7 @@ require 'time'
 module GitTest
   # orchestrates everything
   class Runner
-     attr_accessor :notify, :options, :proj, :test_proj, :test, :writer, :test_dir
+     attr_accessor :notify, :options, :proj, :test_proj, :test, :writer, :test_dir, :proj_branch
 
      def initialize(options ={} , notify = Notify.new)
        self.options     = options
