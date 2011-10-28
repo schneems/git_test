@@ -3,7 +3,7 @@
 Your test results...distributed
 
 git\_test runs your tests and stores them in git. Use git_test to track
-tests over multiple branches, runs, and teammates. Run git\_test when you pull and push
+tests over multiple branches, runs, and teammates. Run git\_test when you fetch and push
 and you'll always know the state of your project!
 
 ## Install
@@ -16,9 +16,9 @@ Before you push your code to a central repo run your tests
 
     $ git_test push
 
-After you pull new code down run your tests
+After you fetch new code down run your tests
 
-    $ git_test pull
+    $ git_test fetch
 
 Whenever you feel like it, run your tests
 
@@ -66,7 +66,7 @@ Git test works by making a temp directory, cloning your repository into that dir
 
 ## CI Isn't Enough
 
-On most projects everyone should run tests locally. The goal of git_test is to make running local tests as easy as possible and also to make them more useful. We do that by storing the result so you can compare branches and find out if another team-members pull request is ATP without having to ask.
+On most projects everyone should run tests locally. The goal of git_test is to make running local tests as easy as possible and also to make them more useful. We do that by storing the result so you can compare branches and find out if another team-members fetch request is ATP without having to ask.
 
 Even better have your CI save its results in git_test.
 
