@@ -68,7 +68,7 @@ module GitTest
      # pulls from origin on the current branch and report branch
      def fetch!
        notify.write("Pulling from origin")
-       proj.fetch(proj_branch)
+       proj.fetch
      end
 
      # writes the result of the test command to disk
