@@ -11,7 +11,7 @@ module GitTest
        self.proj        = GitTest::Proj.new(options)
        self.test        = GitTest::Test.new(options)
        self.proj_branch = proj.current_branch
-       self.test_dir    = Dir.mktmpdir(".git_test_#{proj_branch}_#{Time.now.to_i}")
+       self.test_dir    = Dir.mktmpdir
        prepare_proj_for_test!
        clone_to_test!
      end
