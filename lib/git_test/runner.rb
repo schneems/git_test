@@ -42,7 +42,7 @@ module GitTest
 
      # gives last report file name
      def last_report_file_name(branch = proj_branch)
-       ls_report_dir(branch).first
+       ls_report_dir(branch).last
      end
 
      # outputs the files in the test directory for a given branch
